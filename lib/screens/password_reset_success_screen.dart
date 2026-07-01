@@ -14,7 +14,7 @@ class PasswordResetSuccessScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Success Icon
+              // Success Icon (Purple circle with checkmark)
               Container(
                 width: 80,
                 height: 80,
