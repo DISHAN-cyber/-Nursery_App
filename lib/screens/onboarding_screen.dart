@@ -33,6 +33,58 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     }
   }
 
+  String _getTitle1(int index) {
+    switch (index) {
+      case 0:
+        return 'Never miss the';
+      case 1:
+        return 'Stay Updated in';
+      case 2:
+        return 'Safe & Secure for';
+      default:
+        return '';
+    }
+  }
+
+  String _getTitle2(int index) {
+    switch (index) {
+      case 0:
+        return 'Nursery Magic';
+      case 1:
+        return 'Real Time';
+      case 2:
+        return 'Every Family';
+      default:
+        return '';
+    }
+  }
+
+  String _getDescription(int index) {
+    switch (index) {
+      case 0:
+        return 'From first steps to finger-paint masterpieces—it\'s all here, just for you.';
+      case 1:
+        return 'Instant photos, activities, meals, and daily notes – delivered the moment they happen.';
+      case 2:
+        return 'Your data is protected with enterprise-level security and encryption.';
+      default:
+        return '';
+    }
+  }
+
+  String _getImage(int index) {
+    switch (index) {
+      case 0:
+        return 'assets/images/onboarding1.png.png';
+      case 1:
+        return 'assets/images/onboarding2.png.png';
+      case 2:
+        return 'assets/images/onboarding3.png.png';
+      default:
+        return '';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,71 +111,85 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
 
-            // Illustration Area
-                       // Illustration Area
+            // Illustration Area with PageView
             Expanded(
               flex: 5,
-              child: PageView(
+              child: PageView.builder(
                 controller: _pageController,
                 onPageChanged: (index) {
                   setState(() {
                     _currentPage = index;
                   });
                 },
-                children: [
-                  Image.asset(
-                    'assets/images/onboarding1.png.png',
-                    fit: BoxFit.contain,
-                  ),
-                  Image.asset(
-                    'assets/images/onboarding2.png.png',
-                    fit: BoxFit.contain,
-                  ),
-                  Image.asset(
-                    'assets/images/onboarding3.png.png',
-                    fit: BoxFit.contain,
-                  ),
-                ],
+                itemCount: _totalPages,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Image.asset(
+                      _getImage(index),
+                      fit: BoxFit.contain,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.image_outlined,
+                                size: 80,
+                                color: Colors.grey[400],
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'Image ${index + 1}',
+                                style: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  );
+                },
               ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: 20),
 
             // Text Content
-                        // Text Content
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    _currentPage == 0 ? 'Never miss the' :
-                    _currentPage == 1 ? 'Stay Updated in' :
-                    'Safe & Secure for',
+                    _getTitle1(_currentPage),
                     style: const TextStyle(
                       fontSize: 22,
                       color: Color(0xFF4A4A4A),
                       fontWeight: FontWeight.w400,
+                      height: 1.3,
                     ),
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    _currentPage == 0 ? 'Nursery Magic' :
-                    _currentPage == 1 ? 'Real Time' :
-                    'Every Family',
+                    _getTitle2(_currentPage),
                     style: const TextStyle(
                       fontSize: 28,
                       color: Color(0xFF1A1A1A),
                       fontWeight: FontWeight.w800,
+                      height: 1.2,
                     ),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    _currentPage == 0 
-                        ? 'From first steps to finger-paint masterpieces—it\'s all here, just for you.'
-                        : _currentPage == 1
-                        ? 'Get instant notifications about meals, naps, and daily activities.'
-                        : 'Your data is protected with enterprise-level security and encryption.',
+                    _getDescription(_currentPage),
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.grey[600],
@@ -177,8 +243,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                           ),
                         ],
                       ),
-                      child: const Icon(
-                        Icons.arrow_forward,
+                      child: Icon(
+                        _currentPage == _totalPages - 1
+                            ? Icons.check
+                            : Icons.arrow_forward,
                         color: Colors.white,
                         size: 24,
                       ),
