@@ -11,7 +11,7 @@ class OnboardingScreen extends StatefulWidget {
 class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final int _totalPages = 3;
+  final int _totalPages = 4;
 
   @override
   void dispose() {
@@ -25,63 +25,43 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-    } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreen()),
-      );
     }
   }
 
   String _getTitle1(int index) {
     switch (index) {
-      case 0:
-        return 'Never miss the';
-      case 1:
-        return 'Stay Updated in';
-      case 2:
-        return 'Safe & Secure for';
-      default:
-        return '';
+      case 0: return 'Never miss the';
+      case 1: return 'Stay Updated in';
+      case 2: return 'Safe & Secure for';
+      default: return '';
     }
   }
 
   String _getTitle2(int index) {
     switch (index) {
-      case 0:
-        return 'Nursery Magic';
-      case 1:
-        return 'Real Time';
-      case 2:
-        return 'Every Family';
-      default:
-        return '';
+      case 0: return 'Nursery Magic';
+      case 1: return 'Real Time';
+      case 2: return 'Every Family';
+      default: return '';
     }
   }
 
   String _getDescription(int index) {
     switch (index) {
-      case 0:
-        return 'From first steps to finger-paint masterpieces—it\'s all here, just for you.';
-      case 1:
-        return 'Instant photos, activities, meals, and daily notes – delivered the moment they happen.';
-      case 2:
-        return 'Your data is protected with enterprise-level security and encryption.';
-      default:
-        return '';
+      case 0: return 'From first steps to finger-paint masterpieces—it\'s all here, just for you.';
+      case 1: return 'Instant photos, activities, meals, and daily notes – delivered the moment they happen.';
+      case 2: return 'Your data is protected with enterprise-level security and encryption.';
+      default: return '';
     }
   }
 
   String _getImage(int index) {
     switch (index) {
-      case 0:
-        return 'assets/images/onboarding1.png.png';
-      case 1:
-        return 'assets/images/onboarding2.png.png';
-      case 2:
-        return 'assets/images/onboarding3.png.png';
-      default:
-        return '';
+      case 0: return 'assets/images/onboarding1.png.png';
+      case 1: return 'assets/images/onboarding2.png.png';
+      case 2: return 'assets/images/onboarding3.png.png';
+      case 3: return 'assets/images/onboarding4.png.png';
+      default: return '';
     }
   }
 
@@ -92,24 +72,25 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Skip Button
-            Align(
-              alignment: Alignment.topRight,
-              child: TextButton(
-                onPressed: () => Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (_) => const LoginScreen()),
-                ),
-                child: const Text(
-                  'Skip',
-                  style: TextStyle(
-                    color: Color(0xFF1A1A1A),
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
+            // Skip Button (hide on last page)
+            if (_currentPage < _totalPages - 1)
+              Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                  onPressed: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  ),
+                  child: const Text(
+                    'Skip',
+                    style: TextStyle(
+                      color: Color(0xFF1A1A1A),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
               ),
-            ),
 
             // Illustration Area with PageView
             Expanded(
@@ -162,99 +143,184 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
             const SizedBox(height: 20),
 
-            // Text Content
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _getTitle1(_currentPage),
-                    style: const TextStyle(
-                      fontSize: 22,
-                      color: Color(0xFF4A4A4A),
-                      fontWeight: FontWeight.w400,
-                      height: 1.3,
+            // Text Content (hide on last page)
+            if (_currentPage < _totalPages - 1)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      _getTitle1(_currentPage),
+                      style: const TextStyle(
+                        fontSize: 22,
+                        color: Color(0xFF4A4A4A),
+                        fontWeight: FontWeight.w400,
+                        height: 1.3,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    _getTitle2(_currentPage),
-                    style: const TextStyle(
-                      fontSize: 28,
-                      color: Color(0xFF1A1A1A),
-                      fontWeight: FontWeight.w800,
-                      height: 1.2,
+                    const SizedBox(height: 8),
+                    Text(
+                      _getTitle2(_currentPage),
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: Color(0xFF1A1A1A),
+                        fontWeight: FontWeight.w800,
+                        height: 1.2,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    _getDescription(_currentPage),
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                      height: 1.5,
+                    const SizedBox(height: 16),
+                    Text(
+                      _getDescription(_currentPage),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.grey[600],
+                        height: 1.5,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
             const Spacer(),
 
             // Bottom Controls
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Dots
-                  Row(
-                    children: List.generate(_totalPages, (index) {
-                      return AnimatedContainer(
-                        duration: const Duration(milliseconds: 300),
-                        margin: const EdgeInsets.only(right: 6),
-                        height: 8,
-                        width: index == _currentPage ? 24 : 8,
-                        decoration: BoxDecoration(
-                          color: index == _currentPage
-                              ? const Color(0xFF6B4C7A)
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      );
-                    }),
-                  ),
-                  
-                  // Next Button
-                  GestureDetector(
-                    onTap: _nextPage,
-                    child: Container(
-                      width: 56,
-                      height: 56,
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF6B4C7A),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: const Color(0xFF6B4C7A).withOpacity(0.4),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
+            if (_currentPage < _totalPages - 1)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Dots
+                    Row(
+                      children: List.generate(_totalPages - 1, (index) {
+                        return AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          margin: const EdgeInsets.only(right: 6),
+                          height: 8,
+                          width: index == _currentPage ? 24 : 8,
+                          decoration: BoxDecoration(
+                            color: index == _currentPage
+                                ? const Color(0xFF6B4C7A)
+                                : Colors.grey[300],
+                            borderRadius: BorderRadius.circular(4),
                           ),
-                        ],
-                      ),
-                      child: Icon(
-                        _currentPage == _totalPages - 1
-                            ? Icons.check
-                            : Icons.arrow_forward,
-                        color: Colors.white,
-                        size: 24,
+                        );
+                      }),
+                    ),
+                    
+                    // Next Button
+                    GestureDetector(
+                      onTap: _nextPage,
+                      child: Container(
+                        width: 56,
+                        height: 56,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF6B4C7A),
+                          shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF6B4C7A).withOpacity(0.4),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: const Icon(
+                          Icons.arrow_forward,
+                          color: Colors.white,
+                          size: 24,
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+
+            // Last Page Buttons
+            if (_currentPage == _totalPages - 1)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20),
+                child: Column(
+                  children: [
+                    // Create Account Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          // Navigate to Sign Up
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF2D2D2D),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Create Account',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    // Login Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: OutlinedButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (_) => const LoginScreen()),
+                          );
+                        },
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFF2D2D2D)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Login',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xFF2D2D2D),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            const Icon(
+                              Icons.arrow_forward,
+                              color: Color(0xFF2D2D2D),
+                              size: 20,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
             const SizedBox(height: 20),
           ],
         ),
