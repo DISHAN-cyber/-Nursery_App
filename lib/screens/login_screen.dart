@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // We will create these placeholder screens next
-import 'forgot_password_screen.dart'; 
+import 'forgot_password_screen.dart';
 import 'signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
-              
+
               // Back Button
               GestureDetector(
                 onTap: () => Navigator.pop(context),
@@ -43,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   size: 24,
                 ),
               ),
-              
+
               const SizedBox(height: 30),
 
               // Title
@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 40),
 
               // Email Input
@@ -90,7 +90,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: Color(0xFF6B4C7A)),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                 ),
               ),
 
@@ -126,10 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: Color(0xFF6B4C7A)),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscurePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                      _obscurePassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
                       color: Colors.grey[600],
                     ),
                     onPressed: () {
@@ -152,7 +156,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     // Handle Login Logic
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3D3144), // Dark purple/charcoal
+                    backgroundColor:
+                        const Color(0xFF3D3144), // Dark purple/charcoal
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(27),
                     ),
@@ -177,14 +182,29 @@ class _LoginScreenState extends State<LoginScreen> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+                      MaterialPageRoute(
+                          builder: (_) => const ForgotPasswordScreen()),
                     );
                   },
-                  child: const Text(
-                    'Forgot Password? Click Here',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF6B6B6B),
+                  child: Text.rich(
+                    const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'Forgot Password? ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Color(0xFF6B6B6B),
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Click Here',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF6B6B6B),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -198,6 +218,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   'or Login with',
                   style: TextStyle(
                     fontSize: 14,
+                    fontWeight: FontWeight.bold,
                     color: Color(0xFF6B6B6B),
                   ),
                 ),
@@ -231,7 +252,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Image.asset(
                           'assets/images/google_logo.png', // You can add this later
                           errorBuilder: (context, error, stackTrace) {
-                            return const Text('G', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue));
+                            return const Text('G',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue));
                           },
                         ),
                       ),
@@ -282,7 +306,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
               ),
-              
+
               const SizedBox(height: 20),
             ],
           ),
