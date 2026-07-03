@@ -10,8 +10,7 @@ class NewPasswordScreen extends StatefulWidget {
 
 class _NewPasswordScreenState extends State<NewPasswordScreen> {
   final TextEditingController _newPasswordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
   bool _obscureNewPassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -27,60 +26,62 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFDF5F9),
       body: SafeArea(
-        child: SingleChildScrollView(
+        bottom: false,
+        child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
 
               // Back Button
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Color(0xFF1A1A1A),
-                  size: 24,
+              Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Color(0xFF1A1A1A),
+                    size: 24,
+                  ),
                 ),
               ),
 
               const SizedBox(height: 40),
 
               // Title
-              const Center(
-                child: Text(
-                  'New Password',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A1A1A),
-                  ),
+              const Text(
+                'New Password',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
 
               const SizedBox(height: 12),
 
               // Subtitle
-              const Center(
-                child: Text(
-                  'Enter a new password to continue.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF6B6B6B),
-                  ),
+              const Text(
+                'Enter a new password to continue.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF6B6B6B),
                 ),
               ),
 
               const SizedBox(height: 50),
 
               // New Password Label
-              const Text(
-                'New Password',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1A1A1A),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'New Password',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1A1A1A),
+                  ),
                 ),
               ),
 
@@ -107,13 +108,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: Color(0xFF6B4C7A)),
                   ),
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureNewPassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+                      _obscureNewPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                       color: Colors.grey[600],
                     ),
                     onPressed: () {
@@ -128,12 +126,15 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
               const SizedBox(height: 20),
 
               // Confirm Password Label
-              const Text(
-                'Confirm Password',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Color(0xFF1A1A1A),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Confirm Password',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF1A1A1A),
+                  ),
                 ),
               ),
 
@@ -160,13 +161,10 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                     borderRadius: BorderRadius.circular(12),
                     borderSide: const BorderSide(color: Color(0xFF6B4C7A)),
                   ),
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                   suffixIcon: IconButton(
                     icon: Icon(
-                      _obscureConfirmPassword
-                          ? Icons.visibility_off_outlined
-                          : Icons.visibility_outlined,
+                      _obscureConfirmPassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
                       color: Colors.grey[600],
                     ),
                     onPressed: () {
@@ -204,7 +202,22 @@ class _NewPasswordScreenState extends State<NewPasswordScreen> {
                 ),
               ),
 
-              const SizedBox(height: 40),
+              // Push the line to the very bottom
+              const Spacer(),
+
+              // Black line at the very bottom center
+              Center(
+                child: Container(
+                  width: 134,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 8),
             ],
           ),
         ),
