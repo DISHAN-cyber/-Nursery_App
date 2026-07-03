@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'login_screen.dart';
-// We will create this next
 import 'new_password_screen.dart';
 
 class VerifyEmailScreen extends StatefulWidget {
@@ -56,48 +55,47 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFFFDF5F9),
       body: SafeArea(
+        bottom: false,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 20),
 
               // Back Button
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Color(0xFF1A1A1A),
-                  size: 24,
+              Align(
+                alignment: Alignment.topLeft,
+                child: GestureDetector(
+                  onTap: () => Navigator.pop(context),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new,
+                    color: Color(0xFF1A1A1A),
+                    size: 24,
+                  ),
                 ),
               ),
 
               const SizedBox(height: 40),
 
               // Title
-              const Center(
-                child: Text(
-                  'Verify Your Email',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF1A1A1A),
-                  ),
+              const Text(
+                'Verify Your Email',
+                style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF1A1A1A),
                 ),
               ),
 
               const SizedBox(height: 12),
 
               // Subtitle
-              const Center(
-                child: Text(
-                  'Enter the 5-digit code sent aye****@gmail.com.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Color(0xFF6B6B6B),
-                  ),
+              const Text(
+                'Enter the 5-digit code sent aye****@gmail.com.',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF6B6B6B),
                 ),
               ),
 
@@ -206,29 +204,41 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                 ),
               ),
 
-              const Spacer(),
-
-              // Back to Login Link
-              Center(
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const LoginScreen()),
-                    );
-                  },
-                  child: const Text(
-                    'Back to Login',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Color(0xFF1A1A1A),
-                      fontWeight: FontWeight.w500,
-                    ),
+              // Back to Login - Directly below Verify button
+              const SizedBox(height: 16),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  );
+                },
+                child: const Text(
+                  'Back to Login',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color(0xFF1A1A1A),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
 
-              const SizedBox(height: 30),
+              // Push the line to the very bottom
+              const Spacer(),
+
+              // Black line at the very bottom center
+              Center(
+                child: Container(
+                  width: 134,
+                  height: 5,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFF1A1A1A),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 8),
             ],
           ),
         ),
