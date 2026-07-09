@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'onboarding_screen.dart';
+import 'onboarding/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,9 +13,11 @@ class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
   late AnimationController _clusterController;
   late AnimationController _textController;
-  
+
   late Animation<double> _scaleAnimation;
   late Animation<double> _fadeAnimation;
+  Timer? _textAnimationTimer;
+  Timer? _navigationTimer;
 
   @override
   void initState() {
@@ -32,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
       end: 1.0,
     ).animate(CurvedAnimation(
       parent: _clusterController,
-      curve: Curves.easeOutBack, // Gives it a nice "pop" effect
+      curve: Curves.easeOutBack,
     ));
 
     // 2. Text fade in animation (starts slightly after bubbles)
@@ -49,16 +51,16 @@ class _SplashScreenState extends State<SplashScreen>
       curve: Curves.easeIn,
     ));
 
-    // Start animations
     _clusterController.forward();
-    
-    // Delay text appearance to match Splash 1 -> Splash 2
-    Future.delayed(const Duration(milliseconds: 400), () {
-      _textController.forward();
+
+    _textAnimationTimer = Timer(const Duration(milliseconds: 400), () {
+      if (mounted) {
+        _textController.forward();
+      }
     });
 
-    // Navigate to Onboarding after 3 seconds
-    Timer(const Duration(seconds: 3), () {
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
+      if (!mounted) return;
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (_) => const OnboardingScreen()),
@@ -68,6 +70,8 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   void dispose() {
+    _textAnimationTimer?.cancel();
+    _navigationTimer?.cancel();
     _clusterController.dispose();
     _textController.dispose();
     super.dispose();
@@ -130,7 +134,7 @@ class _SplashScreenState extends State<SplashScreen>
                         ),
                       ),
                     ),
-                    
+
                     // 2. Purple Bubble (Left)
                     Positioned(
                       left: 0,
