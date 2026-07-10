@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'screens/splash_screen.dart';
 import 'themes/app_theme.dart';
+import 'utils/app_router.dart';
 
 void main() {
   runApp(const NurseryConnectApp());
@@ -11,11 +11,11 @@ class NurseryConnectApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Nursery Connect',
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const SplashScreen(),
     );
   }
 }
