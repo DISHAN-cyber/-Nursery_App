@@ -165,7 +165,7 @@ class _VerifyEmailScreenState extends State<VerifyEmailScreen> {
                       ),
                       TextSpan(
                         text: _remainingSeconds > 0
-                            ? 'Resend in 00:0${_remainingSeconds}'
+                            ? 'Resend in 00:0$_remainingSeconds'
                             : 'Resend',
                         style: TextStyle(
                           fontSize: 14,
